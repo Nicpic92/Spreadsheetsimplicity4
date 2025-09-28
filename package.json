@@ -1,0 +1,10 @@
+{
+  "name": "office-management-suite",
+  "version": "1.0.0",
+  "description": "A free, secure suite of browser-based tools for office management.",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3"
+  }
+}
