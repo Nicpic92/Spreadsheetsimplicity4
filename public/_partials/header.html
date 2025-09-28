@@ -1,0 +1,38 @@
+<!-- /public/_partials/header.html -->
+
+<div class="container mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+        <!-- Site Logo -->
+        <a href="/">
+            <!-- Assuming you will create an /assets/logo.png file later -->
+            <img src="/assets/logo.png" alt="Office Management Suite Logo" class="h-12">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav id="main-nav" class="hidden md:flex items-center space-x-8">
+            <a href="/index.html" class="text-gray-600 hover:text-indigo-600 font-medium">Tools</a>
+            <a href="/about.html" class="text-gray-600 hover:text-indigo-600 font-medium">Our Security Promise</a>
+            <!-- This div is the placeholder for login/dashboard buttons. It is populated by auth.js -->
+            <div id="nav-auth-section" class="pl-4">
+                <!-- Content will be injected here by initializeAuthUI() in auth.js -->
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div id="mobile-nav" class="hidden md:hidden mt-4">
+        <a href="/index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Tools</a>
+        <a href="/about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Our Security Promise</a>
+        <!-- This div is the placeholder for the mobile login/dashboard button -->
+        <div id="mobile-nav-auth-section" class="border-t mt-2 pt-2">
+            <!-- Content will be injected here by initializeAuthUI() in auth.js -->
+        </div>
+    </div>
+</div>
