@@ -1,0 +1,19 @@
+# /netlify.toml
+
+[build]
+  # This is the directory that contains all of your frontend HTML, JS, and asset files.
+  # Netlify will deploy the contents of this folder to your live site.
+  publish = "public"
+
+  # This is the directory where all of your backend serverless functions reside.
+  # Netlify will automatically find and deploy these as API endpoints.
+  functions = "netlify/functions"
+
+[[redirects]]
+  # This is the most important rule. It tells Netlify that any request
+  # starting with "/api/" should be redirected to a serverless function.
+  # For example, a request to "/api/login" will execute the function at
+  # /netlify/functions/login.js. The ":splat" is a wildcard.
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200 # This makes it a rewrite, not a redirect. The URL in the browser doesn't change.
