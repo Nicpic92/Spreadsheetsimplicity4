@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Management Suite - Simple & Free Tools</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style> 
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        /* A simple style for the auth modal if it's ever needed */
+        .modal-body { max-height: 70vh; overflow-y: auto; }
+    </style>
+</head>
+<body class="text-gray-800">
+    
+    <!-- This header will be dynamically loaded by JavaScript -->
+    <header id="header-placeholder" class="bg-white shadow-sm sticky top-0 z-50"></header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="text-center py-20 px-6 bg-white">
+            <div class="container mx-auto">
+                <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-500">Simple, Secure Office Tools.</span>
+                </h2>
+                <p class="mt-4 text-2xl md:text-3xl font-semibold text-gray-700">All Completely Free.</p>
+                <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-600">
+                    A suite of powerful, browser-based tools to manage your daily office tasks. Your data is processed on your machine, never uploaded. Sign up to get started.
+                </p>
+                <div class="mt-8">
+                    <button id="hero-signup-button" class="inline-block bg-indigo-600 text-white font-bold text-lg rounded-full py-4 px-10 hover:bg-indigo-700 transition-transform transform hover:scale-105">
+                        Get Started for Free
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools List Section -->
+        <section id="tools" class="py-20 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-900">Our Suite of Tools</h3>
+                    <p class="mt-2 text-lg text-gray-600">Everything you need to manage your data and workflow.</p>
+                </div>
+                <!-- This container will be filled with tools by JavaScript -->
+                <div id="tools-list-container" class="space-y-10">
+                    <p class="text-center text-gray-500">Loading tools...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- This footer will be dynamically loaded by JavaScript -->
+    <footer id="footer-placeholder" class="bg-gray-800 text-white py-8"></footer>
+    
+    <!-- Auth Modal (Hidden by default) -->
+    <div id="auth-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" style="display: none;">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-sm shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <button id="close-auth-modal-button" class="absolute top-0 right-0 mt-4 mr-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h3 class="text-2xl leading-6 font-bold text-gray-900">Get Started</h3>
+                <div class="modal-body mt-2 px-7 py-3">
+                    <!-- Nav Tabs for Login/Signup -->
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                            <button id="login-tab-button" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600">Log In</button>
+                            <button id="signup-tab-button" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Sign Up</button>
+                        </nav>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <form id="login-form" class="mt-4">
+                        <input id="login-email" type="email" placeholder="Email" class="mb-3 px-3 py-2 border rounded w-full" required>
+                        <input id="login-password" type="password" placeholder="Password" class="mb-3 px-3 py-2 border rounded w-full" required>
+                        <button type="submit" class="bg-indigo-600 text-white w-full py-2 rounded hover:bg-indigo-700">Log In</button>
+                    </form>
+
+                    <!-- Signup Form (Hidden by default) -->
+                    <form id="signup-form" class="mt-4" style="display: none;">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input id="signup-first-name" type="text" placeholder="First Name" class="px-3 py-2 border rounded" required>
+                            <input id="signup-last-name" type="text" placeholder="Last Name" class="px-3 py-2 border rounded" required>
+                        </div>
+                        <input id="signup-email" type="email" placeholder="Email" class="mt-3 px-3 py-2 border rounded w-full" required>
+                        <input id="signup-password" type="password" placeholder="Password (min 8 characters)" class="mt-3 px-3 py-2 border rounded w-full" required>
+                        <button type="submit" class="mt-3 bg-gray-600 text-white w-full py-2 rounded hover:bg-gray-700">Create Account</button>
+                    </form>
+
+                    <p id="auth-message" class="mt-4 text-sm min-h-[20px]"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site-wide scripts will be loaded here -->
+    <script src="/app.js"></script>
+    <script src="/auth.js"></script>
+    
+    <!-- Page-specific script -->
+    <script>
+        // This script will be for the homepage specifically
+        document.addEventListener('DOMContentLoaded', () => {
+            // Logic to open the auth modal when the hero button is clicked
+            const heroSignupButton = document.getElementById('hero-signup-button');
+            if (heroSignupButton) {
+                heroSignupButton.addEventListener('click', () => {
+                    // This function will be defined in auth.js
+                    if (typeof openAuthModal === 'function') {
+                        openAuthModal('signup');
+                    }
+                });
+            }
+
+            // --- Logic to fetch and render public tools ---
+            const toolsContainer = document.getElementById('tools-list-container');
+            
+            async function fetchPublicTools() {
+                try {
+                    // We need a new public endpoint to get the tools list without being logged in
+                    const categories = await apiRequest('public-tools'); 
+                    
+                    if (!categories || categories.length === 0) {
+                        toolsContainer.innerHTML = '<p class="text-center text-gray-500">No public tools are available at this time.</p>';
+                        return;
+                    }
+
+                    toolsContainer.innerHTML = ''; // Clear the "Loading..." message
+
+                    categories.forEach(category => {
+                        const categorySection = `
+                            <div>
+                                <h4 class="text-3xl font-bold text-gray-800 mb-6">${category.category_name}</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    ${category.tools.map(tool => createToolCard(tool)).join('')}
+                                </div>
+                            </div>
+                        `;
+                        toolsContainer.insertAdjacentHTML('beforeend', categorySection);
+                    });
+                } catch (error) {
+                    console.error('Failed to load public tools:', error);
+                    toolsContainer.innerHTML = '<p class="text-center text-red-500">Could not load the list of tools. Please try refreshing the page.</p>';
+                }
+            }
+
+            function createToolCard(tool) {
+                // Since all tools are free for logged-in users, we don't need "pro" badges here.
+                // We'll use a neutral style. The link just prompts the login.
+                return `
+                    <div class="bg-white p-8 rounded-lg shadow-md flex flex-col hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex-grow">
+                            <h5 class="text-2xl font-bold text-gray-900">${tool.name}</h5>
+                            <p class="mt-4 text-gray-600">${tool.description}</p>
+                        </div>
+                        <div class="mt-6">
+                            <button onclick="openAuthModal()" class="block text-center w-full bg-indigo-600 text-white font-semibold rounded-lg py-3 px-6 hover:bg-indigo-700">
+                                Log In to Use
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            fetchPublicTools();
+        });
+    </script>
+</body>
+</html>
